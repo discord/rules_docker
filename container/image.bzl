@@ -189,7 +189,7 @@ def _add_create_image_config_args(
     if ctx.attr.launcher:
         args.add("-entrypointPrefix", ctx.file.launcher.basename, format = "/%s")
         args.add_all(ctx.attr.launcher_args, before_each = "-entrypointPrefix")
-    args.use_param_file(param_file_arg = "@%s", use_always=False)
+    args.use_param_file(param_file_arg = "@@%s", use_always=False)
     args.set_param_file_format("multiline")
 
 def _format_legacy_label(t):

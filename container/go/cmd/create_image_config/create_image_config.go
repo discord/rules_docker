@@ -68,8 +68,8 @@ func main() {
 
 	var allArgs []string
 	for _, arg := range os.Args[1:] {
-		if strings.HasPrefix(arg, "@") {
-			content, err := os.ReadFile(arg[1:])
+		if strings.HasPrefix(arg, "@@") {
+			content, err := os.ReadFile(arg[2:])
 			if err != nil {
 				log.Fatalf("Failed to read argfile %s: %v", arg, err)
 			}
