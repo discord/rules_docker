@@ -30,9 +30,9 @@ def go_deps():
     'repositories' in //repositories:repositories.bzl have been imported
     already.
     """
-    go_rules_dependencies()
-    go_register_toolchains()
-    gazelle_dependencies()
+    #go_rules_dependencies()
+    #go_register_toolchains()
+    gazelle_dependencies(go_sdk = "go_sdk")
     excludes = native.existing_rules().keys()
     if "com_github_google_go_containerregistry" not in excludes:
         go_repository(
