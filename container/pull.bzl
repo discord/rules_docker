@@ -98,6 +98,8 @@ _container_pull_attrs = {
     ),
 }
 
+container_pull_attrs = _container_pull_attrs
+
 def _impl(repository_ctx):
     """Core implementation of container_pull."""
 
