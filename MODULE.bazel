@@ -58,6 +58,13 @@ http_file(
 )
 
 http_file(
+    name = "loader_linux_amd64",
+    executable = True,
+    sha256 = "5e5ada66beff07f9188bdc1f99c3fa37c407fc0048cd78b9c2047e9c5516f20b",
+    urls = [("https://storage.googleapis.com/rules_docker/" + RULES_DOCKER_GO_BINARY_RELEASE + "/loader-linux-amd64")],
+)
+
+http_file(
     name = "loader_linux_s390x",
     executable = True,
     sha256 = "0c0ebc3e0a502542547a38b51f4686a049897eeb4cbc0e2f07fc25276c57866f",
