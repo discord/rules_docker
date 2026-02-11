@@ -79,27 +79,6 @@ http_archive(
              CONTAINERREGISTRY_RELEASE + ".tar.gz")],
 )
 
-#go_sdk = use_extension("@io_bazel_rules_go//go:extensions.bzl", "go_sdk")
-#go_sdk.download(
-#    name = "go_sdk",
-#    version = "1.23.0",
-#)
-#
-#http_archive(
-#    name = "io_bazel_rules_go",
-#    sha256 = "08c3cd71857d58af3cda759112437d9e63339ac9c6e0042add43f4d94caf632d",
-#    urls = [
-#        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/rules_go/releases/download/v0.24.2/rules_go-v0.24.2.tar.gz",
-#        "https://github.com/bazelbuild/rules_go/releases/download/v0.24.2/rules_go-v0.24.2.tar.gz",
-#    ],
-#)
-#
-#http_archive(
-#    name = "rules_python",
-#    sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
-#    url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
-#)
-
 # For packaging python tools.
 http_archive(
     name = "subpar",
@@ -167,3 +146,4 @@ pip.parse(
     python_version = "3.11",
     requirements_lock = "@io_bazel_rules_docker//repositories:requirements-pip.txt",
 )
+use_repo(pip, "io_bazel_rules_docker_pip_deps")

@@ -209,53 +209,6 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//:extension.bzl%docker": {
-      "general": {
-        "bzlTransitiveDigest": "QirfvbvGkaot+r46amO08zu6s17J+bvNjZAGh6Fo0Xc=",
-        "usagesDigest": "ryzNKRe6rmecr40o97zg+lwJOcN/KEBxlSZbhjSCq/Y=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "docker_config": {
-            "repoRuleId": "@@//toolchains/docker:toolchain.bzl%toolchain_configure",
-            "attributes": {}
-          }
-        },
-        "recordedRepoMappingEntries": [
-          [
-            "",
-            "bazel_skylib",
-            "bazel_skylib+"
-          ],
-          [
-            "",
-            "go_puller_darwin",
-            "+_repo_rules+go_puller_darwin"
-          ],
-          [
-            "",
-            "go_puller_linux_amd64",
-            "+_repo_rules+go_puller_linux_amd64"
-          ],
-          [
-            "",
-            "go_puller_linux_arm64",
-            "+_repo_rules+go_puller_linux_arm64"
-          ],
-          [
-            "",
-            "go_puller_linux_s390x",
-            "+_repo_rules+go_puller_linux_s390x"
-          ],
-          [
-            "",
-            "io_bazel_rules_docker",
-            ""
-          ]
-        ]
-      }
-    },
     "@@rules_kotlin+//src/main/starlark/core/repositories:bzlmod_setup.bzl%rules_kotlin_extensions": {
       "general": {
         "bzlTransitiveDigest": "OlvsB0HsvxbR8ZN+J9Vf00X/+WVz/Y/5Xrq2LgcVfdo=",
