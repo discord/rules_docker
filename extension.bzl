@@ -8,9 +8,10 @@ load(
 def _docker_impl(module_ctx):
     deps = []
     for module in module_ctx.modules:
-        for tag in module.tags.docker_toolchain_configure:
-            _docker_toolchain_configure(name = tag.repo_name)
-            deps.append(tag.repo_name)
+        if module.is_root:
+            for tag in module.tags.docker_toolchain_configure:
+                _docker_toolchain_configure(name = tag.repo_name)
+                deps.append(tag.repo_name)
     return module_ctx.extension_metadata(
         reproducible = True,
         root_module_direct_deps = deps,
