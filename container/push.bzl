@@ -225,15 +225,15 @@ def container_push(name, format, image, registry, repository, **kwargs):
         registry = registry,
         repository = repository,
         extension = select({
-            "@bazel_tools//src/conditions:host_windows": ".bat",
+            "@platforms//os:windows": ".bat",
             "//conditions:default": "",
         }),
         tag_tpl = select({
-            "@bazel_tools//src/conditions:host_windows": Label("//container:push-tag.bat.tpl"),
+            "@platforms//os:windows": Label("//container:push-tag.bat.tpl"),
             "//conditions:default": Label("//container:push-tag.sh.tpl"),
         }),
         windows_paths = select({
-            "@bazel_tools//src/conditions:host_windows": True,
+            "@platforms//os:windows": True,
             "//conditions:default": False,
         }),
         **kwargs
