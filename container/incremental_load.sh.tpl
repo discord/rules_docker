@@ -122,10 +122,13 @@ function find_diffbase() {
   echo "${TOTAL_DIFF_IDS[@]:0:${LEGACY_COUNT}}"
 }
 
+# $2 is the image tag; it is baked into manifest.json's RepoTags below, so a
+# separate "docker tag" step (tag_layer) is no longer needed.
 function import_config() {
   # Create an image from the image configuration file.
   local name="${RUNFILES}/$1"
-  shift 1
+  local TAG="$2"
+  shift 2
 
   local tmp_dir="$(mktemp -d)"
   echo "${tmp_dir}" >> "${TEMP_FILES}"
@@ -196,7 +199,7 @@ function import_config() {
 [{
    "Config": "config.json",
    "Layers": [$(join_by , ${ALL_QUOTED[@]})],
-   "RepoTags": []
+   "RepoTags": ["$TAG"]
 }]
 EOF
 
@@ -208,12 +211,10 @@ EOF
   tar cPh "${MISSING[@]}" | "${DOCKER}" ${DOCKER_FLAGS} load
 }
 
+# No-op: images are now tagged during import_config via the manifest's
+# RepoTags. Kept so the generated "tag_layer" statements still resolve.
 function tag_layer() {
-  local name="$(cat "${RUNFILES}/$2")"
-
-  local TAG="$1"
-  echo "Tagging ${name} as ${TAG}"
-  "${DOCKER}" ${DOCKER_FLAGS} tag sha256:${name} ${TAG}
+  :
 }
 
 function read_variables() {
