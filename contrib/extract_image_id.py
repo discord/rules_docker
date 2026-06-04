@@ -24,14 +24,18 @@ import tarfile
 
 
 def get_id(tar_path):
-  """Extracts the id of a docker image from its tarball.
+  """Extracts the name of a docker image from its tarball.
+
+  Since Docker Engine moved to the containerd image store (Docker 1.29+), the
+  image id can no longer be reliably derived from the config filename, so this
+  returns the image name from the manifest's RepoTags instead.
 
   Args:
     tar_path: str path to the tarball
 
 
   Returns:
-    str id of the image
+    str name of the image
 
   """
   tar = tarfile.open(tar_path, mode="r")
@@ -51,13 +55,10 @@ def get_id(tar_path):
   # Get the manifest dictionary from JSON
   manifest = decoder.decode(manifest)[0]
 
-  # The name of the config file is of the form <image_id>.json
-  config_file = manifest["Config"]
+  # Read the image name from the manifest's RepoTags.
+  image_name = manifest["RepoTags"][0]
 
-  # Get the id
-  id_ = config_file.split(".")[0]
-
-  return id_
+  return image_name
 
 
 if __name__ == "__main__":

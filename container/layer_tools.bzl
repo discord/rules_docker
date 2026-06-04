@@ -232,11 +232,17 @@ def incremental_load(
 
         pairs = zip(image["diff_id"], image["unzipped_layer"])
 
-        # Import the config and the subset of layers not present
-        # in the daemon.
+        # Turn stamp variable references into bash variables. The only legal
+        # use of '{' in a tag is for stamp variables ('$' is not allowed).
+        tag_reference = tag if not stamp else tag.replace("{", "${")
+
+        # Import the config and the subset of layers not present in the
+        # daemon. The tag is passed through so it can be baked into the
+        # manifest's RepoTags during the load, which makes tag_layer a no-op.
         load_statements += [
-            "import_config '%s' %s" % (
+            "import_config '%s' \"%s\" %s" % (
                 _get_runfile_path(ctx, image["config"]),
+                tag_reference,
                 " ".join([
                     "'%s' '%s'" % (
                         _get_runfile_path(ctx, diff_id),
@@ -247,13 +253,11 @@ def incremental_load(
             ),
         ]
 
-        # Now tag the imported config with the specified tag.
-        tag_reference = tag if not stamp else tag.replace("{", "${")
+        # tag_layer is a no-op now (the manifest already carries the tag), but
+        # the statement is still emitted so the generated script stays in sync
+        # with the template's %{tag_statements} substitution.
         tag_statements += [
             "tag_layer \"%s\" '%s'" % (
-                # Turn stamp variable references into bash variables.
-                # It is notable that the only legal use of '{' in a
-                # tag would be for stamp variables, '$' is not allowed.
                 tag_reference,
                 _get_runfile_path(ctx, image["config_digest"]),
             ),
