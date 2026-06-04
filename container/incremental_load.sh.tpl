@@ -211,10 +211,12 @@ EOF
   tar cPh "${MISSING[@]}" | "${DOCKER}" ${DOCKER_FLAGS} load
 }
 
-# No-op: images are now tagged during import_config via the manifest's
-# RepoTags. Kept so the generated "tag_layer" statements still resolve.
+# The image is already tagged during import_config (via the manifest's
+# RepoTags), so this no longer runs "docker tag". It only logs the tag, since
+# "docker load" under the containerd image store omits it from its output.
 function tag_layer() {
-  :
+  local TAG="$1"
+  echo "Tagged ${TAG} during load"
 }
 
 function read_variables() {
